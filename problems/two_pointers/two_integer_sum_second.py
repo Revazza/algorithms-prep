@@ -15,6 +15,8 @@ def twoSum(self, numbers: List[int], target: int) -> List[int]:
 
 def twoSumOptimized(self, nums: List[int], target: int) -> List[int]:
 
+    # Time Complexity O(n)
+    # Space Complexity O(1)
     l = 0;
     r = len(nums)
 
