@@ -30,21 +30,31 @@ def threeSumOptimized(self, nums: List[int]) -> List[List[int]]:
 
     target = 0
     nums.sort()
-    triplets = set()
+    triplets = []
+
+    #Input: nums = [-1, 0, 1, 2, -1, -4]
+
+    # sorted - [-4, -1, -1, 0, 1 , 2]
+
+    #Output: [[-1, -1, 2], [-1, 0, 1]]
 
     for i in range(len(nums)):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
         l = i + 1
         r = len(nums) - 1
 
         while l < r:
-            if nums[l] + nums[r] + nums[i] > target:
+            if nums[i] + nums[l] + nums[r] > target:
                 r -= 1
-            elif nums[l] + nums[r] + nums[i] < target:
+            elif nums[i] + nums[l] + nums[r] < target:
                 l += 1
             else:
-                triplets.add(tuple([nums[i], nums[l], nums[r]]))
+                triplets.append([nums[i], nums[l], nums[r]])
                 l += 1
-                r -= 1
+                while nums[l] == nums[l - 1] and l < r:
+                    l += 1
 
-    return [list(t) for t in triplets]
+    return triplets
+
 
