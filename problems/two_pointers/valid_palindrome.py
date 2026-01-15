@@ -3,6 +3,8 @@
     l = 0;
     r = len(s) - 1;
 
+    # Time Complexity O(n)
+    # Space Complexity O(1)
     while l < r:
         if not s[l].isalnum():
             l += 1;
