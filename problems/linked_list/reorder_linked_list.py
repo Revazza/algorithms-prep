@@ -7,27 +7,35 @@ from problems.linked_list.list_node import ListNode
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
 
-        nodes = []
+        slow = head
+        fast = head
 
-        temp = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
 
-        while temp:
-            nodes.append(temp)
-            temp = temp.next
+        second = slow.next
+        slow.next = None
 
-        left = 0
-        right = len(nodes) - 1
+        prev = None
+        while second:
+            temp = second.next
+            second.next = prev
+            prev = second
+            second = temp
 
-        while left < right:
-            nodes[left].next = nodes[right]
-            left += 1
+        reversedSecond = prev
 
-            if left == right:
-                break
+        firstHead = head
 
-            nodes[right].next = nodes[left]
-            right -=1
+        while reversedSecond:
+            tempReversed = reversedSecond.next
+            tempFirst = firstHead.next
 
-        nodes[left].next = None
+            firstHead.next = reversedSecond
+            reversedSecond.next = tempFirst
+
+            firstHead = tempFirst
+            reversedSecond = tempReversed
 
         return None
