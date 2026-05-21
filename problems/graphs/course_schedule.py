@@ -27,9 +27,6 @@ class Solution:
                 return True
 
             pres = courses[course]
-            if len(pres) == 0:
-                return True
-
             visited.add(course)
 
             for pre in pres:
