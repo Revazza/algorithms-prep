@@ -2,36 +2,26 @@
 
 
 class Solution:
-    def countComponents(self, some_N: int, edges: List[List[int]]) -> int:
-        graph = dict()
-        for i in range(some_N):
-            graph[i] = []
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        par = [i for i in range(n)]
 
-        for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
+        def find(x):
+            while x != par[x]:
+                x = par[x]
+            return par[x]
 
-        seen = set()
+        def union(n1, n2):
+            p1 = find(n1)
+            p2 = find(n2)
 
-        def dfs(start_node) -> int:
-            if start_node in seen:
-                return 0
-            stack = [start_node]
+            if p1 == p2:
+                return False
 
-            while stack:
-                node = stack.pop()
-                seen.add(node)
-                neighs = graph[node]
+            par[p2] = p1
+            return True
 
-                for nei in neighs:
-                    if nei in seen:
-                        continue
-                    stack.append(nei)
+        for n1,n2 in edges:
+            if union(n1,n2):
+                n -= 1
 
-            return 1
-
-        count = 0
-        for u in graph:
-            count += dfs(u)
-
-        return count
+        return n
