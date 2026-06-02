@@ -4,41 +4,34 @@
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
 
-        graph = dict()
-        for i in range(len(edges)):
-            graph[i + 1] = []
+        par = [i for i in range(len(edges) + 1)]
+        rank = [1] * (len(edges) + 1)
 
-        def has_cycle(start):
+        def find(x):
+            while x != par[x]:
+                x = par[x]
+            return par[x]
 
-            visited = set()
-            stack = [(start, -1)]
+        def union(n1, n2):
+            p1 = find(n1)
+            p2 = find(n2)
 
-            while stack:
-                node, parent = stack.pop()
+            if p1 == p2:
+                return False
 
-                if node in visited:
-                    continue
+            if rank[p1] > rank[p2]:
+                par[p2] = p1
+            elif rank[p1] < rank[p2]:
+                par[p1] = p2
+            else:
+                par[p2] = p1
+                rank[p1] += 1
 
-                visited.add(node)
+            return True
 
-                for nei in graph[node]:
+        for n1,n2 in edges:
+            if not union(n1,n2):
+                return [n1, n2]
 
-                    if nei == parent:
-                        continue
-
-                    if nei in visited:
-                        return True
-
-                    stack.append((nei, node))
-
-            return False
-
-        for u, v in edges:
-
-            graph[u].append(v)
-            graph[v].append(u)
-
-            if has_cycle(u):
-                return [u, v]
 
         return []
