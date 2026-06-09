@@ -5,20 +5,20 @@ from typing import List
 class Solution:
     def minCostClimbingStairs(self, costs: List[int]) -> int:
 
-        cache = {}
+        dp = dict()
 
-        def calc_cost(i):
+        def count_steps(i):
             if i >= len(costs):
                 return 0
 
-            if i in cache:
-                return cache[i]
+            if i in dp:
+                return dp[i]
 
-            cache[i] = costs[i] + min(
-                calc_cost(i + 1),
-                calc_cost(i + 2)
+            dp[i] = costs[i] + min(
+                count_steps(i + 1),
+                count_steps(i + 2)
             )
 
-            return cache[i]
+            return dp[i]
 
-        return min(calc_cost(0), calc_cost(1))
+        return min(count_steps(0), count_steps(1))
