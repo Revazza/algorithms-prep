@@ -1,5 +1,35 @@
 ﻿class Solution:
     def longestPalindrome(self, s: str) -> str:
+        # babad
+
+        max_length = 0
+        res = ""
+
+        for i in range(len(s)):
+            l = i
+            r = i
+
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if max_length < (r - l + 1):
+                    max_length = r - l + 1
+                    res = s[l: r + 1]
+                l -= 1
+                r += 1
+
+            l = i
+            r = i + 1
+
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if max_length < (r - l + 1):
+                    max_length = r - l + 1
+                    res = s[l: r + 1]
+                l -= 1
+                r += 1
+
+        return res
+
+    '''
+    def longestPalindrome(self, s: str) -> str:
 
         dp = dict()
 
@@ -30,3 +60,4 @@
             return True
 
         return find_longest(0, len(s) - 1)
+    '''
