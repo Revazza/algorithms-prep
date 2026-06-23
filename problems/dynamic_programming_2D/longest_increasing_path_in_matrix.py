@@ -4,8 +4,6 @@ from typing import List
 
 class Solution:
 
-
-    '''
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
 
         if len(matrix) == 0:
@@ -36,4 +34,3 @@ class Solution:
                 ways = max(ways, dfs(r, c))
 
         return ways
-    '''
