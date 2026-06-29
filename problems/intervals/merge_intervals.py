@@ -2,6 +2,24 @@
 
 
 class Solution:
+
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+
+        intervals.sort()
+
+        result = [intervals[0]]
+        # 2 4 - 3 5
+        # 2 4 - 5 6
+        for start, end in intervals:
+
+            if start > result[-1][1]:
+                result.append([start, end])
+            else:
+                result[-1][1] = max(result[-1][1], end)
+
+        return result
+
+    '''
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
 
         def overlaps(interval1, interval2):
@@ -28,3 +46,4 @@ class Solution:
             result.append(merge(result.pop(), interval))
 
         return result
+    '''
