@@ -2,6 +2,28 @@
 
 
 class Solution:
+
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+
+        result = []
+        for i in range(len(intervals)):
+            # [3 4] - [1 2] (new)
+            interval = intervals[i]
+
+            if newInterval[1] < interval[0]:
+                result.append(newInterval)
+                return result + intervals[i:]
+
+            # [1 2] - [3 4] (new)
+            if newInterval[0] > interval[1]:
+                result.append(interval)
+            else:
+                newInterval = [min(newInterval[0], interval[0]), max(newInterval[1], interval[1])]
+
+        result.append(newInterval)
+        return result
+
+    '''
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
 
         result = [newInterval]
@@ -31,3 +53,4 @@ class Solution:
             add(interval)
 
         return result
+    '''
