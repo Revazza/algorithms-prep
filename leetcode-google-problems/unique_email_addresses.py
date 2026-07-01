@@ -2,9 +2,9 @@
     def numUniqueEmails(self, emails: List[str]) -> int:
 
         sent = set()
-
+        for i in range(len(emails) - 1, -1, -1):
+            return 0
         for email in emails:
-
             mid = -1
             processed = ""
             for i in range(len(email)):
